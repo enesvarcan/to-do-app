@@ -4,32 +4,34 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Kullanici {
+@Table(name = "user", schema = "public")
+public class Kullanici  {
     @Id
+    @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="username", unique = true)
     private String username;
 
+    @Column(name="password" )
     private String password;
 
+    @Column(name="email", unique = true)
     private String email;
-
+    @Column(name="name")
     private String name;
-
+    @Column(name="surname")
     private String surname;
-
+    @Column(name="phonenumber")
     private String phone_number;
-
+    @Column(name="notifallow")
     private boolean notif_allow;
 
 

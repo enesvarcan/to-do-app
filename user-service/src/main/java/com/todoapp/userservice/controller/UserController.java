@@ -1,10 +1,9 @@
 package com.todoapp.userservice.controller;
 
 import com.todoapp.userservice.entities.Kullanici;
+import com.todoapp.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.todoapp.userservice.repository.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,22 +13,31 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping("/createKullanici")
-    public Kullanici adduser(@RequestBody Kullanici user) {
-        return userRepository.save(user);
+    public Kullanici adduser(@RequestBody Kullanici kullanici) {
+        return userService.save(kullanici);
+    }
+
+    @DeleteMapping ("/deleteKullanici/{id}")
+    public Kullanici adduser(@PathVariable Long id) {
+        Kullanici deletedKullanici = userService.getById(id);
+        userService.deleteById(id);
+        return deletedKullanici;
     }
 
     @GetMapping("/getAll")
     public List<Kullanici> getAllProduct () {
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
-    @GetMapping("/getNotifKullanicis")
-    public List<Kullanici> getNotifKullanicis () {
-        List<Kullanici> users= userRepository.findAll();
-
-        return users.stream().filter(p -> p.isNotif_allow()).collect(Collectors.toList());
+    @GetMapping("/getNotifKullanicilar")
+    public List<Kullanici> getNotifKullanicilar () {
+        List<Kullanici> users= userService.findAll();
+        return users.stream().filter(Kullanici::isNotif_allow).collect(Collectors.toList());
     }
+
+
+
 }
