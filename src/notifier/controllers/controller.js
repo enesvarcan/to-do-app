@@ -1,4 +1,6 @@
 const sendEmail = require('./mailer')
+const axios = require('axios')
+const User = require('../models/user.model')
 
 exports.healthCheck = (req, res) => {
     res.status(200).send('Todoapp Notifier Service is up and running!')
@@ -6,10 +8,38 @@ exports.healthCheck = (req, res) => {
 
 exports.newUserRegistered = (req, res) => {
 
+    var userInfo = {
+        username: req.body.username,
+        email: req.body.email,
+        notifAllow: req.body.notifAllow,
+        name: typeof req.body.name != 'undefined' ? userInfo.name : "",
+        surname: typeof req.body.surname != 'undefined' ? userInfo.surname : "",
+    }
+
+    var user = new User(userInfo)
+    
+    user.save((err, usr) => {
+        if (err) return res.status(500).send(err)
+
+        var mailSentStatus = sendWelcomeMail(usr)
+
+        if(typeof res != 'undefined') return res.status(mailSentStatus).send()
+    })
+}
+
+exports.notifyUsers = () => {
+    const users = await User.find({notifAllow: true})
+    let usernames = users.map(user => user.username)
+    const todoItems = getDoneTodoItems(usernames)
+
+    // TODO: TODO
+}
+
+function sendWelcomeMail(user) {
     var name = "Todoapp Kullanıcısı"
 
-    if(typeof req.body.name != 'undefined' && typeof req.body.surname != 'undefined') name = req.body.name + " " + req.body.surname
-    else if (typeof req.body.username != 'undefined') name = req.body.username
+    if(user.name != '' && user.surname != '') name = user.name + " " + user.surname
+    else if (typeof user.username != 'undefined') name = user.username
 
     var message = `
     Todoapp'e Hoşgeldiniz!
@@ -21,15 +51,18 @@ exports.newUserRegistered = (req, res) => {
     Verimli günler dileriz! 
 
     `
-    var status = sendEmail(req.body.email, 'Todoapp\'e Hoşgeldiniz!', message, debug=true)
-    
-    if(typeof res != 'undefined') return res.status(status).send()
+    return sendEmail(user.email, 'Todoapp\'e Hoşgeldiniz!', message, debug=true)
 }
 
-exports.notifyUsers = () => {
-    // TODO: Implement daily notifications
-    
-    var status = sendEmail('test@test.com', 'Testing Notifications', 'This is a test message', debug=true)
-    
-    if(typeof res != 'undefined') return res.status(status).send()
+function getDoneTodoItems(usernames) {
+
+    axios.post(process.env.USER_HOST + '/getDoneTodos', usernames)
+    .then(res => {
+        console.log(`statusCode: ${res.statusCode}`)
+        console.log(res)
+        return res
+      })
+      .catch(error => {
+        console.error(error)
+      })
 }
