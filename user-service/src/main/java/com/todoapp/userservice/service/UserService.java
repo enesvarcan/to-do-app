@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -26,6 +28,10 @@ public class UserService implements UserDetailsService {
         return userRepository.getById(id);
     }
 
+    public Kullanici getByUsername(String username) {
+        return userRepository.findKullaniciByUsername(username);
+    }
+
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
@@ -36,7 +42,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User("foo","foo", new ArrayList<>());
+        Kullanici user = getByUsername(username);
+        return new User(user.getUsername(),user.getPassword(), new ArrayList<>());
     }
 }
 
