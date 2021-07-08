@@ -56,7 +56,7 @@ public class TodoService {
         else throw new IllegalStateException("cannot_find_todo_item");
     }
 
-    public List<Todo> getTodosDoneYesterday(String username) {
+    public List<Todo> getDailyTodos(String username){
         return todoRepository.findTodosByUsernameAndDoneAtBetween(
                 username,
                 new Date(System.currentTimeMillis()-24*60*60*1000),

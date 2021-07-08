@@ -42,8 +42,8 @@ public class TodoController {
         todoService.deleteTodo(todoId);
     }
 
-    @GetMapping(path = "/user/{username}/dailyTodos")
-    public List<Todo> getDailyDoneTodos(@PathVariable("username") String username) {
-        return todoService.getTodosDoneYesterday(username);
+    @GetMapping("/user/{username}/dailyTodos")
+    public List<Todo> getDailyTodosDone(String username){
+        return todoService.getDailyTodos(username);
     }
 }
