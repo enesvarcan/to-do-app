@@ -24,6 +24,7 @@ public class TodoService {
     }
 
     public void createTodo (Todo todo) {
+        todo.setCreatedAt(new Date());
         todoRepository.save(todo);
     }
 

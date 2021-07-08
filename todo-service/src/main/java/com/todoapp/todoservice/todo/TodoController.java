@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping(path = "/")
 public class TodoController {
@@ -43,7 +44,7 @@ public class TodoController {
     }
 
     @GetMapping("/user/{username}/dailyTodos")
-    public List<Todo> getDailyTodosDone(String username){
+    public List<Todo> getDailyTodosDone(@PathVariable String username){
         return todoService.getDailyTodos(username);
     }
 }
