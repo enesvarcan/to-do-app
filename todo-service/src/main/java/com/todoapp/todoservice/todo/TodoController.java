@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "todoapp/todo")
+@RequestMapping(path = "/")
 public class TodoController {
 
     private final TodoService todoService;
@@ -40,5 +40,10 @@ public class TodoController {
     @DeleteMapping("/{todoId}")
     public void deleteTodoItem(@PathVariable("todoId") String todoId) {
         todoService.deleteTodo(todoId);
+    }
+
+    @GetMapping(path = "/user/{username}/dailyTodos")
+    public List<Todo> getDailyDoneTodos(@PathVariable("username") String username) {
+        return todoService.getTodosDoneYesterday(username);
     }
 }

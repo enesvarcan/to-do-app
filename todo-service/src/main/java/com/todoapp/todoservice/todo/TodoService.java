@@ -55,4 +55,11 @@ public class TodoService {
         if(todoItem.isPresent()) todoRepository.deleteById(todoId);
         else throw new IllegalStateException("cannot_find_todo_item");
     }
+
+    public List<Todo> getTodosDoneYesterday(String username) {
+        return todoRepository.findTodosByUsernameAndDoneAtBetween(
+                username,
+                new Date(System.currentTimeMillis()-24*60*60*1000),
+                new Date());
+    }
 }
