@@ -28,11 +28,8 @@ exports.newUserRegistered = (req, res) => {
 }
 
 exports.notifyUsers = () => {
-    const users = await User.find({notifAllow: true})
-    let usernames = users.map(user => user.username)
-    const todoItems = getDoneTodoItems(usernames)
 
-    // TODO: TODO
+    // TODO: get users and call getDoneTodoItems()
 }
 
 function sendWelcomeMail(user) {
@@ -54,15 +51,10 @@ function sendWelcomeMail(user) {
     return sendEmail(user.email, 'Todoapp\'e Hoşgeldiniz!', message, debug=true)
 }
 
-function getDoneTodoItems(usernames) {
+function getDoneTodoItems(username) {
 
-    axios.post(process.env.USER_HOST + '/getDoneTodos', usernames)
-    .then(res => {
-        console.log(`statusCode: ${res.statusCode}`)
-        console.log(res)
-        return res
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    axios.get('http://localhost:8080/user/'+username+'/dailyTodos').then(resp => {
+
+        console.log(resp.data);
+    })
 }
