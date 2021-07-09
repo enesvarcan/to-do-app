@@ -47,6 +47,8 @@ public class TodoService {
             }
 
             todoRepository.save(todoToBeUpdated);
+        } else {
+            throw new IllegalStateException("todo_not_found");
         }
     }
 
