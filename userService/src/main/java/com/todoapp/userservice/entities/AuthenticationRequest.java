@@ -1,4 +1,4 @@
-package com.todoapp.gateway.entities;
+package com.todoapp.userservice.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,10 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse implements Serializable {
+public class AuthenticationRequest implements Serializable {
 
-    private  String jwt;
 
+    private String username;
+    private String password;
 
 }
