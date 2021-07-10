@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "https://d8a612c1c808.ngrok.io/")
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -56,18 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public Kullanici adduser(@RequestBody Kullanici user) throws URISyntaxException {
-        RestTemplate restTemplate = new RestTemplate();
-
-        final String baseUrl = "http://1c5f1f17e4a1.ngrok.io/newUserRegistered";
-        URI uri = new URI(baseUrl);
-        Map<Object, Object> map = new HashMap<>();
-        map.put("username", user.getUsername());
-        map.put("email", user.getEmail());
-        map.put("name", user.getName());
-        map.put("surname", user.getSurname());
-        map.put("notifAllow", user.isNotif_allow());
-        ResponseEntity<String> result = restTemplate.postForEntity(uri, map, String.class);
+    public Kullanici adduser(@RequestBody Kullanici user) {
         return userService.save(user);
     }
 
