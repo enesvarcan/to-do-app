@@ -34,7 +34,7 @@ mongoose.connect(process.env.DB_CONN_STR)
     '* * * * *' : Fire at every minute
 */
 
-var job = new CronJob('* * * * *', controller.notifyUsers, null, true)
+var job = new CronJob('0 23 * * *', controller.notifyUsers, null, true)
 job.start()
 
 app.listen(process.env.PORT, () => {

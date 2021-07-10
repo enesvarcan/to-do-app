@@ -59,6 +59,11 @@ function sendWelcomeMail(user) {
 }
 
 function getDoneTodoItems(username) {
+    var config = {
+        headers: {
+            Authorization: "Bearer" + process.env.TOKEN
+        }
+    }
 
-     return axios.get('http://localhost:8080/todo/user/'+username+'/dailyTodos')
+     return axios.get('http://localhost:8080/todo/user/'+username+'/dailyTodos', config)
 }
