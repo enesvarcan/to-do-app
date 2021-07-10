@@ -1,6 +1,7 @@
 const sendEmail = require('./mailer')
 const axios = require('axios')
 const User = require('../models/user.model')
+const emailTemplates = require('../resources/email.templates')
 
 exports.healthCheck = (req, res) => {
     res.status(200).send('Todoapp Notifier Service is up and running!')
@@ -12,8 +13,8 @@ exports.newUserRegistered = (req, res) => {
         username: req.body.username,
         email: req.body.email,
         notifAllow: req.body.notifAllow,
-        name: typeof req.body.name != 'undefined' ? userInfo.name : "",
-        surname: typeof req.body.surname != 'undefined' ? userInfo.surname : "",
+        name: typeof req.body.name != 'undefined' ? req.body.name.name : "",
+        surname: typeof req.body.surname != 'undefined' ? req.body.name.surname : "",
     }
 
     var user = new User(userInfo)
@@ -27,9 +28,23 @@ exports.newUserRegistered = (req, res) => {
     })
 }
 
-exports.notifyUsers = () => {
+exports.notifyUsers = async () => {
 
-    // TODO: get users and call getDoneTodoItems()
+    let users = await User.find({notifAllow: true})
+    
+    for(user of users){
+        let items = await getDoneTodoItems(user.username)
+        if(items.data.length === 0){
+            var message = emailTemplates.getNoTodoDoneMessage()
+            sendEmail(user.email, emailTemplates.dailyTodoNotification(), message, true)
+        } else {
+            
+            let titles = items.data.map((item) => {return item.title});
+            var message = emailTemplates.getTodosDoneMessage(titles.join('\n'), titles.length)
+            sendEmail(user.email, emailTemplates.dailyTodoNotification(), message, true)
+        }
+    }
+    
 }
 
 function sendWelcomeMail(user) {
@@ -38,23 +53,12 @@ function sendWelcomeMail(user) {
     if(user.name != '' && user.surname != '') name = user.name + " " + user.surname
     else if (typeof user.username != 'undefined') name = user.username
 
-    var message = `
-    Todoapp'e Hoşgeldiniz!
+    var message = emailTemplates.getWelcomeMessage(name)
 
-    Merhaba ${name},
-
-    Todoapp'e kaydolduğunuz için teşekkür ederiz. 
-
-    Verimli günler dileriz! 
-
-    `
     return sendEmail(user.email, 'Todoapp\'e Hoşgeldiniz!', message, debug=true)
 }
 
 function getDoneTodoItems(username) {
 
-    axios.get('http://localhost:8080/user/'+username+'/dailyTodos').then(resp => {
-
-        console.log(resp.data);
-    })
+     return axios.get('http://localhost:8080/todo/user/'+username+'/dailyTodos')
 }
