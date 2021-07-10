@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Style/todo.css">
+</head>
+<body>
+    <div id="editToDo-container" class="coverallpage d-none">
+        <div id="editToDo-kutusu" class="container position-relative">
+            <div class="container">
+                <label style="margin-top: 5px; margin-bottom: 0px;">ToDo Title</label>
+                <input id="edit-todo-title" type="text" class="form-control"/>
+                <label>Description</label>
+                <input id="edit-todo-description" type="text" class="form-control"/>
+                <label>Priority</label>
+                <select class="form-select" id="edit-todo-priority">
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <label>Due Date</label>
+                <input type="date" id="edit-todo-dueDate" class="form-control">
+                <div class="button-group">
+                    <button class="btn btn-sm btn-primary kaydet-btn">Kaydet</button>
+                    <button class="btn btn-sm btn-danger iptal-btn">İptal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toDo-container" class="coverallpage d-none">
+        <div id="toDo-kutusu" class="container position-relative">
+            <div class="container">
+                <label style="margin-top: 5px; margin-bottom: 0px;">ToDo Title</label>
+                <input id="new-todo-title" type="text" class="form-control"/>
+                <label>Description</label>
+                <input id="new-todo-description" type="text" class="form-control"/>
+                <label>Priority</label>
+                <select class="form-select" id="new-todo-priority">
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <label>Due Date</label>
+                <input type="date" id="edit-todo-dueDate" class="form-control">
+                <div class="button-group">
+                    <button class="btn btn-sm btn-primary kaydet-btn">Kaydet</button>
+                    <button class="btn btn-sm btn-danger iptal-btn">İptal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toDoSil-container" class="coverallpage d-none">
+        <div id="toDoSil-kutusu" class="container position-relative">
+            <div class="container">
+                <p style="margin-top: 5px; margin-bottom: 0px;">... silmek istediğinize emin misiniz?</p>
+                <div class="button-group">
+                    <button class="btn btn-sm btn-danger sil-btn">Sil</button>
+                    <button class="btn btn-sm btn-primary iptal-btn">İptal</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="container p-4">
+        <div id="cikis-grubu">
+            <label id="kullanici-text">...... olarak giriş yaptınız.</label>
+            <button id="logout-btn" class="btn btn-danger btn-sm">Çıkış</button>
+        </div>
+        <div class="navbar navbar-expand-lg navbar-light bg-light">
+            <button id="toDo-btn" class="btn btn-primary">New To Do</button> 
+        </div>
+
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                        <th>Done Status</th>   
+                    </tr>
+                </thead>
+                <tbody id="proses-listesi">
+
+                </tbody>
+            </table> 
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="../Script/api.js"></script>
+    <script src="../Script/loginKontrolleri.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script src="../Script/todo.js"></script>
+</body>
+</html>

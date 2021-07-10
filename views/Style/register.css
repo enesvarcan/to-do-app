@@ -1,0 +1,35 @@
+body {
+    box-sizing: border-box;
+}
+
+.coverallpage{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.521);
+}
+
+#register-kutusu{
+    background-color: white; 
+    width: 300px; 
+    height: 344px; 
+    top: 50%;
+    left: 50%;
+    margin-top: -172px;
+    margin-left: -150px;
+    padding-top: 6px;
+    border-radius: 10px;
+    box-shadow: 2px 5px 10px black;
+}
+
+.form-control{
+    margin-bottom: 5px;
+}
+
+#button-group{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}
+

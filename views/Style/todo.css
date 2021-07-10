@@ -1,0 +1,253 @@
+*{
+    box-sizing: border-box;
+}
+
+.coverallpage{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.521);
+}
+
+#editToDo-kutusu, #toDo-kutusu ,#farklikaydet-kutusu{
+    background-color: white; 
+    width: 400px; 
+    height: 310px; 
+    top: 50%;
+    left: 50%;
+    margin-top: -155px;
+    margin-left: -200px;
+    padding-top: 6px;
+    border-radius: 10px;
+    box-shadow: 2px 5px 10px black;
+}
+
+#toDoSil-kutusu{
+    background-color: white; 
+    width: 300px; 
+    height: 120px; 
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -150px;
+    padding-top: 6px;
+    border-radius: 10px;
+    box-shadow: 2px 5px 10px black;
+}
+
+
+.button-group .sil-btn, .button-group .iptal-btn{
+    margin-right: 1px;
+    display: inline-block;
+}
+
+#toDoSil-kutusu .button-group{
+    margin-top: 10px;
+    margin-left: 65%;
+}
+
+#editToDo-kutusu .button-group, #toDo-container .button-group, 
+#farklikaydet-container .button-group{
+    margin-top: 10px;
+    margin-left: 67%;
+}
+
+.active-proses{
+    background-color:lightgray;
+}
+
+.circle{
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: .75rem;
+}
+
+.aktif-true{
+    background-color: green;
+}
+
+.aktif-false{
+    background-color: red;
+}
+
+#cikis-grubu{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+}
+
+#kullanici-yonet-btn, #hangfire-btn{
+    margin-left: 5px;
+}
+
+#navbar-button-group{
+    right: 10px;
+    position: absolute;
+}
+
+.menu-btn{
+    float: right;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-btn span{
+    width: 8px;
+    height: 8px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-left: 0;
+    display: inline-block;
+}
+
+.menu-container{
+    position: absolute;
+    right: 0px;
+    z-index: 2;
+    box-shadow: 1px 1px 3px;
+    width: 150px;
+}
+
+.menu .list-group-item{
+    font-size: 0.9rem;
+    padding: .35rem 0.5rem;
+}
+
+#cikis-grubu{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+thead{
+  position: sticky;
+  top: 0px;
+}
+
+#yukleniyor-kutusu{
+    background-color: white; 
+    width: 400px; 
+    height: 150px; 
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -200px;
+    padding-top: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 5px 10px black;
+}
+
+#message-kutusu{
+  background-color: white; 
+  width: 400px; 
+  height: 100px; 
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -200px;
+  padding-top: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 5px 10px black;
+}
+
+#message-box-ok-button{
+  float: right;
+  margin: 10px;
+}
+
+.lds-spinner {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+  }
+  .lds-spinner div {
+    transform-origin: 40px 40px;
+    animation: lds-spinner 1.2s linear infinite;
+  }
+  .lds-spinner div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 37px;
+    width: 6px;
+    height: 13px;
+    border-radius: 20%;
+    background: black;
+  }
+  .lds-spinner div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -1.1s;
+  }
+  .lds-spinner div:nth-child(2) {
+    transform: rotate(30deg);
+    animation-delay: -1s;
+  }
+  .lds-spinner div:nth-child(3) {
+    transform: rotate(60deg);
+    animation-delay: -0.9s;
+  }
+  .lds-spinner div:nth-child(4) {
+    transform: rotate(90deg);
+    animation-delay: -0.8s;
+  }
+  .lds-spinner div:nth-child(5) {
+    transform: rotate(120deg);
+    animation-delay: -0.7s;
+  }
+  .lds-spinner div:nth-child(6) {
+    transform: rotate(150deg);
+    animation-delay: -0.6s;
+  }
+  .lds-spinner div:nth-child(7) {
+    transform: rotate(180deg);
+    animation-delay: -0.5s;
+  }
+  .lds-spinner div:nth-child(8) {
+    transform: rotate(210deg);
+    animation-delay: -0.4s;
+  }
+  .lds-spinner div:nth-child(9) {
+    transform: rotate(240deg);
+    animation-delay: -0.3s;
+  }
+  .lds-spinner div:nth-child(10) {
+    transform: rotate(270deg);
+    animation-delay: -0.2s;
+  }
+  .lds-spinner div:nth-child(11) {
+    transform: rotate(300deg);
+    animation-delay: -0.1s;
+  }
+  .lds-spinner div:nth-child(12) {
+    transform: rotate(330deg);
+    animation-delay: 0s;
+  }
+  @keyframes lds-spinner {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  .coverallpage {
+    z-index: 4;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.521);
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+  * {
+      font-size: 13px;
+  }
+}

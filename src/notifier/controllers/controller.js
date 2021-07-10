@@ -28,6 +28,15 @@ exports.newUserRegistered = (req, res) => {
     })
 }
 
+exports.triggerDailyNotifications = (req, res) => {
+    try{
+        this.notifyUsers()
+        res.status(200).send("notifications_are_sent")
+    } catch(err) {
+        res.status(500).send("server_error")
+    }
+}
+
 exports.notifyUsers = async () => {
 
     let users = await User.find({notifAllow: true})
@@ -59,6 +68,11 @@ function sendWelcomeMail(user) {
 }
 
 function getDoneTodoItems(username) {
+    var config = {
+        headers: {
+            Authorization: "Bearer" + process.env.TOKEN
+        }
+    }
 
-     return axios.get('http://localhost:8080/todo/user/'+username+'/dailyTodos')
+     return axios.get('http://localhost:8080/todo/user/'+username+'/dailyTodos', config)
 }
