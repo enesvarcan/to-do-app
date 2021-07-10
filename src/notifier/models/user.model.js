@@ -16,7 +16,7 @@ var UserSchema = new Schema({
         unique: true
     },
 
-    notifAllow: {
+    notif_allow: {
         type: Boolean,
         required: true
     },

@@ -12,7 +12,7 @@ exports.newUserRegistered = (req, res) => {
     var userInfo = {
         username: req.body.username,
         email: req.body.email,
-        notifAllow: req.body.notifAllow,
+        notif_allow: req.body.notif_allow,
         name: typeof req.body.name != 'undefined' ? req.body.name.name : "",
         surname: typeof req.body.surname != 'undefined' ? req.body.name.surname : "",
     }
@@ -39,19 +39,17 @@ exports.triggerDailyNotifications = (req, res) => {
 
 exports.notifyUsers = async () => {
 
-    let users = await User.find({notifAllow: true})
-    
+    let users = await User.find({notif_allow: true})
     for(user of users){
         let items = await getDoneTodoItems(user.username)
         if(items.data.length === 0){
             var message = emailTemplates.getNoTodoDoneMessage()
-            sendEmail(user.email, emailTemplates.dailyTodoNotification(), message, true)
         } else {
             
             let titles = items.data.map((item) => {return item.title});
             var message = emailTemplates.getTodosDoneMessage(titles.join('\n'), titles.length)
-            sendEmail(user.email, emailTemplates.dailyTodoNotification(), message, true)
         }
+        sendEmail(user.email, emailTemplates.dailyTodoNotification(), message, true)
     }
     
 }
@@ -70,9 +68,9 @@ function sendWelcomeMail(user) {
 function getDoneTodoItems(username) {
     var config = {
         headers: {
-            Authorization: "Bearer" + process.env.TOKEN
+            Authorization: "Bearer " + process.env.TOKEN
         }
     }
 
-     return axios.get('http://localhost:8080/todo/user/'+username+'/dailyTodos', config)
+     return axios.get('http://192.168.1.55:9002/todo/user/'+username+'/dailyTodos', config)
 }
