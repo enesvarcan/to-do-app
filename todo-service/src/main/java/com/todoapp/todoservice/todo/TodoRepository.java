@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface TodoRepository extends MongoRepository<Todo, String> {
     List<Todo> findTodosByUsername (String username);
-    Todo findTodosByUsernameAndCreatedAt(String username, Date createdAt);
     List<Todo> findTodosByUsernameAndDoneAtBetween(String username, Date yesterday, Date today);
 
 }
