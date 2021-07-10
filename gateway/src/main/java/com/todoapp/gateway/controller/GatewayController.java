@@ -104,6 +104,16 @@ public class GatewayController {
 
     }
 
+    @PutMapping(path = "/todo/{todoId}")
+    public void updateTodo(@PathVariable String todoId,@RequestBody Object todo) throws URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String baseUrl = TODO_SERVICE_URL+"/todo/"+todoId;
+        URI uri = new URI(baseUrl);
+        restTemplate.put(uri,todo);
+
+    }
+
     @GetMapping(path = "/todo/user/{username}/dailyTodos")
     public Object getUserDailyTodos(@PathVariable String username) throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
@@ -113,6 +123,7 @@ public class GatewayController {
 
         return restTemplate.getForEntity(uri, String.class).getBody();
     }
+
 
     ////// --------------------------------------------------
 }
