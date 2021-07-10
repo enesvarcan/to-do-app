@@ -6,13 +6,15 @@ import com.todoapp.userservice.entities.Kullanici;
 import com.todoapp.userservice.service.UserService;
 import com.todoapp.userservice.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +51,15 @@ public class UserController {
         return new AuthenticationResponse(jwt);
     }
 
-    @PostMapping("/createKullanici")
-    public Kullanici adduser(@RequestBody Kullanici kullanici) {
-        return userService.save(kullanici);
+    @PostMapping("/create")
+    public Kullanici adduser(@RequestBody Kullanici user) throws URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String baseUrl = "http://ffe128eabaf0.ngrok.io/newUserRegistered";
+        URI uri = new URI(baseUrl);
+
+        restTemplate.postForEntity(uri, user, Object.class);
+        return userService.save(user);
     }
 
     @DeleteMapping ("/deleteKullanici/{id}")
